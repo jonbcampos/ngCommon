@@ -129,7 +129,7 @@ describe('models.PersistenceModel', function () {
                 expect(PersistenceModel.getPropertyAsObject('one', 'prop')).toEqual({"a": d});
                 PersistenceModel.save();
                 var utcYear = d.getUTCFullYear(),
-                    utcMonth = paddStringFilter(d.getUTCMonth()+1, 0, 2, true),
+                    utcMonth = paddStringFilter(d.getUTCMonth() + 1, 0, 2, true),
                     utcDay = paddStringFilter(d.getUTCDate(), 0, 2, true),
                     utcHour = paddStringFilter(d.getUTCHours(), 0, 2, true),
                     utcMinutes = paddStringFilter(d.getUTCMinutes(), 0, 2, true),
@@ -360,7 +360,7 @@ describe('models.PersistenceModel', function () {
                 expect(PersistenceModel.getPropertyAsDate('one', 'prop')).toEqual(d);
                 PersistenceModel.save();
                 var utcYear = d.getUTCFullYear(),
-                    utcMonth = paddStringFilter(d.getUTCMonth()+1, 0, 2, true),
+                    utcMonth = paddStringFilter(d.getUTCMonth() + 1, 0, 2, true),
                     utcDay = paddStringFilter(d.getUTCDate(), 0, 2, true),
                     utcHour = paddStringFilter(d.getUTCHours(), 0, 2, true),
                     utcMinutes = paddStringFilter(d.getUTCMinutes(), 0, 2, true),
@@ -378,7 +378,7 @@ describe('models.PersistenceModel', function () {
                 expect(PersistenceModel.getPropertyAsDate('one', 'prop')).toEqual(d);
                 PersistenceModel.save();
                 var utcYear = d.getUTCFullYear(),
-                    utcMonth = paddStringFilter(d.getUTCMonth()+1, 0, 2, true),
+                    utcMonth = paddStringFilter(d.getUTCMonth() + 1, 0, 2, true),
                     utcDay = paddStringFilter(d.getUTCDate(), 0, 2, true),
                     utcHour = paddStringFilter(d.getUTCHours(), 0, 2, true),
                     utcMinutes = paddStringFilter(d.getUTCMinutes(), 0, 2, true),

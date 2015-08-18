@@ -145,7 +145,7 @@ notificationModel.factory('NotificationModel', ['$timeout', function ($timeout) 
      * @methodOf models.NotificationModel
      */
     model.removeAll = function () {
-        if(model.list === undefined){
+        if (model.list === undefined) {
             model.list = null;
         }
         if (model.list === null || model.list.length === 0) {

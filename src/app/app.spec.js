@@ -568,7 +568,7 @@ describe('app', function () {
 
             });
 
-            describe('fault', function(){
+            describe('fault', function () {
 
                 beforeEach(inject(function (_$q_) {
                     var deferred = _$q_.defer();
