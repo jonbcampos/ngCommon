@@ -21,13 +21,10 @@ var appModule = angular.module('app', [
     // models
     'models.NotificationModel',
     'models.PropertiesModel',
-    'models.SessionModel',
     // sections
     'app.sections.section1',
     'app.sections.section2',
-    'app.sections.noprofile',
     'app.sections.notfound',
-    'app.sections.admin',
     'app.sections.blank',
     // modals
     'app.sections.modals.confirm',
@@ -82,9 +79,6 @@ appModule.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$pro
 appModule.factory('localDataInjector', [function () {
     var localDataInjector = {
         request: function (config) {
-            if (config.method === 'GET' && config.url === './user/profile') {
-                config.url = './assets/data/profile.get.json';
-            }
             return config;
         }
     };
@@ -128,8 +122,8 @@ appModule.run(['StartupCommand', '$rootScope', '$state', '$stateParams', 'WatchD
  * @requires $scope
  *
  */
-appModule.controller('appCtrl', ['$rootScope', '$scope', 'SessionModel', '$location', 'WindowService',
-    function ($rootScope, $scope, SessionModel, $location, WindowService) {
+appModule.controller('appCtrl', ['$rootScope', '$scope', '$location', 'WindowService',
+    function ($rootScope, $scope, $location, WindowService) {
 
         /**
          * @ngdoc function
@@ -181,43 +175,7 @@ appModule.controller('appCtrl', ['$rootScope', '$scope', 'SessionModel', '$locat
          */
         $scope.onStateChangeStartHandler = function (event, toState, toParams, fromState, fromParams) {
             // no matter what we can send them to the fault pages
-            if (toState.url === '/noprofile' || toState.url === '/notfound' || toState.url === '/initializing') {
-                return;
-            }
-            // if no profile, stop them from snopping around
-            if (SessionModel.profile === undefined ||
-                SessionModel.profile === null ||
-                SessionModel.profile.userMsg === 'Profile Failed To Load') {
-                $location.path('/noprofile');
-                event.preventDefault();
-                // throw error
-                $rootScope.$emit('systemAlert', {
-                    title: 'Security Error',
-                    message: "You don't have an active profile.",
-                    type: 'danger', timeout: 5000,
-                    showDetails: false
-                });
-                return;
-            }
-            // TODO add something custom to this project
-            // if SessionModel.profile is missing? set to null
-            if (SessionModel.profile.admin === undefined ||
-                SessionModel.profile.admin === null) {
-                SessionModel.profile.admin = false;
-            }
-            // if not an admin and
-            // trying to go to a URL with admin in the link
-            if (!SessionModel.profile.admin &&
-                toState.name.indexOf('admin') > -1) {
-                $location.path('/notfound');
-                // throw error
-                $rootScope.$emit('systemAlert', {
-                    title: 'Security Error',
-                    message: "You don't have the permissions to view the requested resource.",
-                    type: 'danger',
-                    timeout: 5000,
-                    showDetails: false
-                });
+            if (toState.url === '/notfound' || toState.url === '/initializing') {
                 return;
             }
         };
@@ -278,7 +236,6 @@ appModule.controller('appCtrl', ['$rootScope', '$scope', 'SessionModel', '$locat
             $scope.$on('$stateChangeSuccess', $scope.onStateChangeSuccessHandler);
             $rootScope.$on('applicationReadyChange', $scope.onApplicationReadyChangeHandler);
             //set binding
-            $scope.SessionModel = SessionModel;
             //get state
             //set view
             $scope.isNavOpen = false;

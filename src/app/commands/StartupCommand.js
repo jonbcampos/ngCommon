@@ -11,7 +11,6 @@
 var startupCommand = angular.module('commands.StartupCommand', [
     'models.PropertiesModel',
     'models.PersistenceModel',
-    'models.SessionModel',
     'common.helpers.isSuccess',
     'services.WindowService'
 ]);
@@ -25,8 +24,8 @@ var startupCommand = angular.module('commands.StartupCommand', [
  * @requires $resource
  */
 startupCommand.factory('StartupCommand', ['$rootScope', '$location', 'PropertiesModel', 'PersistenceModel', '$q',
-    '$timeout', 'SessionModel', 'isSuccessFilter', 'WindowService',
-    function ($rootScope, $location, PropertiesModel, PersistenceModel, $q, $timeout, SessionModel, isSuccessFilter, WindowService) {
+    '$timeout',
+    function ($rootScope, $location, PropertiesModel, PersistenceModel, $q, $timeout) {
 
         var command = {};
 
@@ -47,48 +46,17 @@ startupCommand.factory('StartupCommand', ['$rootScope', '$location', 'Properties
             // load up properties
             PersistenceModel.load('yourappname');
             // load up models
-            SessionModel.retrieveData();
 
-            // start something async for promise completion
-            // hold old profile id and check against new
-            command.oldProfileId = null;
-            if (SessionModel.profile !== undefined && SessionModel.profile !== null &&
-                SessionModel.profile.userId !== undefined && SessionModel.profile.userId !== null) {
-                command.oldProfileId = SessionModel.profile.userId;
-            }
-            // to clear out models
-            SessionModel.loadProfile().then(onSessionModelProfileResult);
+            // wait
+            command.timeoutDeregister = $timeout(function () {
+                onStartupComplete(true);
+                command.timeoutDeregister = null;
+            });
             // return deferred for promise
             return command.deferred.promise;
         };
 
-        var onSessionModelProfileResult = function (value) {
-            // first, did something come back or throw error?
-            if (!isSuccessFilter(value)) {
-                if (value.status !== undefined &&
-                    value.status !== null &&
-                    (value.status.toString() === '511' || value.status.toString() === '503')) {
-                    WindowService.goToRelativeUrl('/wps/myportal/ph/tph/appslug/');
-                } else {
-                    var userMsg = value.data || "Profile Failed To Load";
-                    SessionModel.profile = {"userMsg": userMsg};
-                    command.originalPath = "/noprofile";
-                    onStartupComplete(false);
-                }
-                return;
-            }
-            // get profile
-            var profile = value.result;
 
-            // second, if the profile id doesn't match old, clear data
-            if (command.oldProfileId !== profile.userId) {
-                // SomeModel.clearData();
-            }
-
-            // TODO something based on profile
-            onStartupComplete();
-
-        };
 
         var onStartupComplete = function (value) {
             moveToState();

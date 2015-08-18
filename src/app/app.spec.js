@@ -18,15 +18,14 @@ describe('app', function () {
 
     describe('appCtrl', function () {
 
-        var $scope, ctrl, $rs, $templateCache, $location, WindowService, SessionModel;
+        var $scope, ctrl, $rs, $templateCache, $location, WindowService;
 
-        beforeEach(inject(function ($rootScope, _$templateCache_, $controller, _$location_, _WindowService_, _SessionModel_) {
+        beforeEach(inject(function ($rootScope, _$templateCache_, $controller, _$location_, _WindowService_) {
             $scope = $rootScope.$new();
             $rs = $rootScope;
             $templateCache = _$templateCache_;
             $location = _$location_;
             WindowService = _WindowService_;
-            SessionModel = _SessionModel_;
             // spies!
             spyOn($rs, '$emit');
             spyOn(WindowService, 'setScrollPosition');
@@ -35,8 +34,7 @@ describe('app', function () {
                 $scope: $scope,
                 $location: $location,
                 $templateCache: $templateCache,
-                WindowService: WindowService,
-                SessionModel: SessionModel
+                WindowService: WindowService
             });
         }));
 
@@ -115,175 +113,6 @@ describe('app', function () {
 
             it('should always allow us to go to a fault page', function () {
                 var toState = {"data": {"pageTitle": "hi"}, "url": "/notfound", "name": "notfound"};
-                var toParams = {};
-                var fromState = {"data": {"pageTitle": "bye"}, "url": "/"};
-                var fromParams = {};
-                // run
-                $scope.onStateChangeStartHandler({
-                    "name": '$stateChangeStart', "preventDefault": function () {
-                    }
-                }, toState, toParams, fromState, fromParams);
-                // assert
-                // "" means that we didn't move and let the default happen, good
-                expect($location.path()).toBe("");
-            });
-
-            it('should go to no profile if profile is missing', function () {
-                // setup profile
-                SessionModel.profile = undefined;
-                // setup state
-                var toState = {"data": {"pageTitle": "hi"}, "url": "/calendar", "name": "calendar"};
-                var toParams = {};
-                var fromState = {"data": {"pageTitle": "bye"}, "url": "/"};
-                var fromParams = {};
-                // run
-                $scope.onStateChangeStartHandler({
-                    "name": '$stateChangeStart', "preventDefault": function () {
-                    }
-                }, toState, toParams, fromState, fromParams);
-                // assert
-                expect($location.path()).toBe("/noprofile");
-                expect($rs.$emit).toHaveBeenCalledWith('systemAlert', {
-                    title: 'Security Error',
-                    message: "You don't have an active profile.",
-                    type: 'danger', timeout: 5000,
-                    showDetails: false
-                });
-            });
-
-            it('should go to no profile if profile is missing', function () {
-                // setup profile
-                SessionModel.profile = null;
-                // setup state
-                var toState = {"data": {"pageTitle": "hi"}, "url": "/calendar", "name": "calendar"};
-                var toParams = {};
-                var fromState = {"data": {"pageTitle": "bye"}, "url": "/"};
-                var fromParams = {};
-                // run
-                $scope.onStateChangeStartHandler({
-                    "name": '$stateChangeStart', "preventDefault": function () {
-                    }
-                }, toState, toParams, fromState, fromParams);
-                // assert
-                expect($location.path()).toBe("/noprofile");
-                expect($rs.$emit).toHaveBeenCalledWith('systemAlert', {
-                    title: 'Security Error',
-                    message: "You don't have an active profile.",
-                    type: 'danger', timeout: 5000,
-                    showDetails: false
-                });
-            });
-
-            it('should go to no profile if profile is missing', function () {
-                // setup profile
-                SessionModel.profile = {"userMsg": "Profile Failed To Load"};
-                // setup state
-                var toState = {"data": {"pageTitle": "hi"}, "url": "/calendar", "name": "calendar"};
-                var toParams = {};
-                var fromState = {"data": {"pageTitle": "bye"}, "url": "/"};
-                var fromParams = {};
-                // run
-                $scope.onStateChangeStartHandler({
-                    "name": '$stateChangeStart', "preventDefault": function () {
-                    }
-                }, toState, toParams, fromState, fromParams);
-                // assert
-                expect($location.path()).toBe("/noprofile");
-                expect($rs.$emit).toHaveBeenCalledWith('systemAlert', {
-                    title: 'Security Error',
-                    message: "You don't have an active profile.",
-                    type: 'danger', timeout: 5000,
-                    showDetails: false
-                });
-            });
-
-            it('should not let a non admin go to an admin location', function () {
-                // setup profile
-                SessionModel.profile = {"admin": false};
-                // setup state
-                var toState = {"data": {"pageTitle": "hi"}, "url": "/admin/calendar", "name": "admin.calendar"};
-                var toParams = {};
-                var fromState = {"data": {"pageTitle": "bye"}, "url": "/"};
-                var fromParams = {};
-                // run
-                $scope.onStateChangeStartHandler({
-                    "name": '$stateChangeStart', "preventDefault": function () {
-                    }
-                }, toState, toParams, fromState, fromParams);
-                // assert
-                expect($location.path()).toBe("/notfound");
-                expect($rs.$emit).toHaveBeenCalledWith('systemAlert', {
-                    title: 'Security Error',
-                    message: "You don't have the permissions to view the requested resource.",
-                    type: 'danger', timeout: 5000,
-                    showDetails: false
-                });
-            });
-
-            it('should not let a non admin go to an admin location', function () {
-                // setup profile
-                SessionModel.profile = {};
-                // setup state
-                var toState = {"data": {"pageTitle": "hi"}, "url": "/admin/calendar", "name": "admin.calendar"};
-                var toParams = {};
-                var fromState = {"data": {"pageTitle": "bye"}, "url": "/"};
-                var fromParams = {};
-                // run
-                $scope.onStateChangeStartHandler({
-                    "name": '$stateChangeStart', "preventDefault": function () {
-                    }
-                }, toState, toParams, fromState, fromParams);
-                // assert
-                expect($location.path()).toBe("/notfound");
-                expect($rs.$emit).toHaveBeenCalledWith('systemAlert', {
-                    title: 'Security Error',
-                    message: "You don't have the permissions to view the requested resource.",
-                    type: 'danger', timeout: 5000,
-                    showDetails: false
-                });
-            });
-
-            it('should let a admin go to an admin location', function () {
-                // setup profile
-                SessionModel.profile = {"admin": true};
-                // setup state
-                var toState = {"data": {"pageTitle": "hi"}, "url": "/admin/calendar", "name": "admin.calendar"};
-                var toParams = {};
-                var fromState = {"data": {"pageTitle": "bye"}, "url": "/"};
-                var fromParams = {};
-                // run
-                $scope.onStateChangeStartHandler({
-                    "name": '$stateChangeStart', "preventDefault": function () {
-                    }
-                }, toState, toParams, fromState, fromParams);
-                // assert
-                // "" means that we didn't move and let the default happen, good
-                expect($location.path()).toBe("");
-            });
-
-            it('should let a admin go to an non admin location', function () {
-                // setup profile
-                SessionModel.profile = {"admin": true};
-                // setup state
-                var toState = {"data": {"pageTitle": "hi"}, "url": "/calendar", "name": "calendar"};
-                var toParams = {};
-                var fromState = {"data": {"pageTitle": "bye"}, "url": "/"};
-                var fromParams = {};
-                // run
-                $scope.onStateChangeStartHandler({
-                    "name": '$stateChangeStart', "preventDefault": function () {
-                    }
-                }, toState, toParams, fromState, fromParams);
-                // assert
-                // "" means that we didn't move and let the default happen, good
-                expect($location.path()).toBe("");
-            });
-
-            it('should let a non admin go to an non admin location', function () {
-                // setup profile
-                SessionModel.profile = {"admin": false};
-                // setup state
-                var toState = {"data": {"pageTitle": "hi"}, "url": "/calendar", "name": "calendar"};
                 var toParams = {};
                 var fromState = {"data": {"pageTitle": "bye"}, "url": "/"};
                 var fromParams = {};
