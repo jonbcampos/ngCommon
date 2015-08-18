@@ -1,0 +1,14 @@
+<label for="{{content.title}}">
+    <span ng-bind="content.title"></span>
+    <span class="required" ng-show="content.validations.required">*</span>
+</label>
+<div class="input-group fill-parent">
+    <span class="input-group-addon" ng-show="content.extras.addOnBefore" ng-bind="content.extras.addOnBefore"></span>
+    <input class="form-control"
+           placeholder="{{content.hint}}"
+           type="{{content.extras.type}}"
+           ng-class="{'input-sm': content.size==='sm', 'input-lg':content.size==='lg'}"/>
+    <span class="input-group-addon" ng-show="content.extras.addOnAfter" ng-bind="content.extras.addOnAfter"></span>
+</div>
+<div class="form-error"></div>
+<span class="help-block" ng-bind="content.description"></span>

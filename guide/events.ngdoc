@@ -1,0 +1,59 @@
+@ngdoc overview
+@name Events
+@description
+
+# Events
+
+Ultimately there are two kinds of events you will need to work with in your applications. Events coming from user via the user interface and events being sent out from different parts of your application.
+
+## View/Controller Communication
+
+When a page is done loading or the user clicks on a button you may want to respond to this user interface event within your application. One way you may think of handling this interaction is to add a listener in your controller. While you can technically make this work, it does now add a dependency between the view and the controller that is unnecessary. Instead, the recommended way is to add functions onto your `$scope`. This will expose the function to the view and then the view can call the function based on the event.
+
+<doc:example>
+<doc:source>
+<script>
+     function Ctrl($scope) {
+        $scope.onClick = function(){
+            alert('button clicked!');
+        };
+     }
+     </script>
+<div ng-controller="Ctrl">
+<button ng-click="onClick()">Click Me!</button>
+</div>
+</doc:source>
+</doc:example>
+
+Now you still can easily unit test your controller while responding to user interface events.
+
+<div class="alert alert-warning">
+ **Note:** You will notice I used `ng-click` instead of just `click`. This is something nice that Angular provides for us, adding the event handlers when Angular is ready and saving you the headache of adding handlers at a specific point in the view's lifecycle. There are `ng-*` for basically all the events you may need.
+ </div>
+
+## InterApplication Communication via Event Bus
+
+The other sort of events you may need to respond to is a system-wide event, maybe when a service returns or there is a change in a model. At this point any controller that may need to respond to this change can add a listener and respond appropriately.
+
+<doc:example>
+<doc:source>
+<script>
+     function Ctrl($rootScope, $scope) {
+        $scope.onClick = function(){
+            $rootScope.$emit('someApplicationEvent', {label:'We did it!'});
+        };
+
+        var handler = function(event, data){
+            alert(data.label);
+        };
+
+        $rootScope.$on('someApplicationEvent', handler);
+     }
+     </script>
+<div ng-controller="Ctrl">
+<button ng-click="onClick()">Click Me!</button>
+</div>
+</doc:source>
+</doc:example>
+
+We are using our global `$rootScope` as a central event bus. This means that any controller that may need to respond to a specific custom event now can. This is a highly recommended pattern to keep your modules as loosely coupled as possible.

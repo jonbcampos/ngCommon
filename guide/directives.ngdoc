@@ -1,0 +1,63 @@
+@ngdoc overview
+@name Directives
+@description
+
+# Code Resuse via Directives
+
+At a high level Directives are a contained section of reusable code to determine the visual look of an application. Directives can include lots of code to handle some functionality... or no code at all. There are many options for how you can customize your directives, for the sake of an example we will look at the simplest directive.
+
+<pre>
+angular.module('common.directives.busyindicator', []).directive("busyindicator", function () {
+    return {
+        restrict: "AEC",
+        scope: {},
+        template: '<div class="well well-lg">' +
+            '<div class="progress progress-striped active">' +
+            '<div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">' +
+            '<span class="sr-only">Loading...</span>' +
+            '</div>' +
+            '</div>' +
+            '</div>'
+    };
+});
+</pre>
+
+This very simple busy indicator can be used with any of the three following lines of code.
+
+<doc:example>
+<doc:source>
+<script>
+angular.module('common.directives.busyindicator', [])
+    .directive("busyindicator", function () {
+        return {
+            restrict: "AEC",
+            scope: {},
+            template: '<div class="well well-lg">' +
+                '<div class="progress progress-striped active">' +
+                '<div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">' +
+                '<span class="sr-only">Loading...</span>' +
+                '</div>' +
+                '</div>' +
+                '</div>'
+        };
+    });
+function Ctrl($scope) {
+}
+</script>
+<div ng-controller="Ctrl">
+    <busyindicator></busyindicator>
+    <div busyindicator></div>
+    <div class="busyindicator"></div>
+</div>
+</doc:source>
+</doc:example>
+
+ As mention when discussing [services](/#/guide/services) and [dependency injection](/#/guide/dependencyinjection), these directives can easily utilize dependency injection to simplify your coding and increase code reuse.
+
+<div class="alert alert-warning">
+ **Note:** In this example I focused on visual application components. To see non-visual components code reuse checkout the section on [services](/#/capabilities/services).
+ </div>
+
+---
+
+For further reading including lots of information on [how to actual use and create directives](http://docs.angularjs.org/guide/directive) visit the Angular docs.

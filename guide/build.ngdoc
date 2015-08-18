@@ -1,0 +1,61 @@
+@ngdoc overview
+@name Build
+@description
+
+# Building the Project
+
+This project is build using Grunt as the build system. This is a fairly standard build system with Javascript based projects. As such there are a few helpful Grunt tasks to be aware of during development to build and compile the project.
+
+## Grunt (default)
+
+> `$ grunt`
+
+or
+
+> `$ grunt default`
+
+Using this task will build and compile your code for a production release along with building the docs for the application.
+
+## Grunt Watch
+
+> `$ grunt watch`
+
+This task will continuously watch your code during development and run the unit tests after every file save. <code>watch</code> also creates a build directory for you to run your code from for your <code>live refresh</code>. Extremely helpful during development.
+
+## Grunt Build
+
+> `$ grunt build`
+
+The build task creates a <code>build</code> directory and places all of the code, html files, templates, less files, etc into the directory. This code is for testing and debugging only. The generated code isn't minified for release and therefore is at a size much larger than necessary for production. This code is good for development as you are able to add breakpoints into your code as necessary and work through any issues.
+
+## Grunt Compile
+
+> `$ grunt compile`
+
+This build task will generate a <code>bin</code> directory and compile all of the code into one minified (unreadable) file for production release. All of the less files are also generated into one css file for release. This <code>bin</code> directory is ready to go into production.
+
+## Grunt Ngdocs
+
+> `$ grunt ngdocs`
+
+This task added for convenience only to specifically build the documentation.
+
+## Local Webserver
+
+> `$ http-server -p {portnumber}`
+
+I'm adding this for easy reference for how to create a simple webserver to run the application. As you know there are different application security sandboxes from running a local file and running a file on a webserver. For development you should always be running on a webserver.
+
+## Running Scenario Tests
+
+> `$ webdriver-manager start`
+
+The first line starts up the selenium server...
+
+> `$ protractor {e2e config file}`
+
+Example:
+
+> `$ protractor e2e.conf.js`
+
+The second line runs the tests.

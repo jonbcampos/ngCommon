@@ -1,0 +1,49 @@
+@ngdoc overview
+@name Data Flow
+@description
+
+# Data Flow
+
+The following lays out a basic example of the data flow used repeatedly throughout the application. We won't go through each and every example of data flows as they are all so similar that there wouldn't be any benefit to the extra reading or the extra writing.
+
+## Example Flow
+
+In this example we will look specifically at loading the sales input and then saving the sales input data.
+
+### Loading data
+
+The loading of the sales input data starts when a user selects a specific store or whenever they are returning to the sales input view and the data is no longer "fresh" based on business requirements. For all of the data flows in our application the most difficult part will be to figure out this kickoff point. Everything beyond this point is 100% similar for any loading request.
+ 
+ | MVC Owner | Action | Description |
+ | --- | --- | --- | --- |
+ | Controller | Kickoff | User Action |
+ | Model | Call Load | Controller calls appropriate load method in model |
+ | Service | Request Promise | The model requests a `promise` from the service |
+ | Service | Make Request | The service makes the request to the server |
+ | Service | Get Response | On Server response the service either `resolves` or `rejects` the `promise` |
+ | Model | Update Data | The model's result/fault method is called from the service and responds appropriately |
+ | Model | Update Bindings | The model updates any data bindings for the view to update |
+ | View | Update Bindings | The view gets model updates and runs any connected directives and/or filters |
+ | Model | Dispatch Events | The model dispatches events of the change for any application listeners |
+ | Controller | Respond to Event | Any controllers listening to event updates run their handler methods |
+ 
+ For our Loading Sales Input Example this looks like the following:
+ 
+  | Module | Action | Description |
+  | --- | --- | --- | --- |
+  | NavCtrl | Kickoff | User Selects Store |
+  | SelectedStoreModel | Call Load | Controller calls SelectedStoreModel.loadSelectedStore with the store selected by the user and dispatches the `salesInputLoadingChanged` event for view updates |
+  | WatchLoadingCommand | Respond to Event | Shows the loading indicator based on the `salesInputLoadingChanged` event |
+  | SalesInputService | Request Promise | The SelectedStoreModel requests a `promise` from the SalesInputService with getSalesInput method |
+  | SalesInputService | Make Request | The service makes the request to the server with url `./stores/{{selectedStoreId}}/forecast` |
+  | SalesInputService | Get Response | On Server response the service either `resolves` or `rejects` the `promise` |
+  | SelectedStoreModel | Update Data | The SelectedStoreModel's `salesInputResult`/`salesInputFault` method is called from the service and responds appropriately |
+  | SelectedStoreModel | Update Bindings | The SelectedStoreModel updates the `salesInput` object |
+  | SalesInput View | Update Bindings | The view gets SelectedStoreModel updates and updates the tables on the page |
+  | SelectedStoreModel | Dispatch Events | The model dispatches the `salesInputChanged` and `salesInputLoadingChanged` events |
+  | WatchLoadingCommand | Respond to Event | Removes the loading indicator based on the `salesInputLoadingChanged` event |
+  
+### Saving Data
+
+Saving data is exactly like loading data. The only difference is the service makes a POST request rather than a GET 
+request. Other than that it is almost 100% the same (the difference just being the methods called, not the data flow).

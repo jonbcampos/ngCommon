@@ -1,0 +1,63 @@
+@ngdoc overview
+@name Unit Testing
+@description
+
+# Live / Continuous Testing
+
+Whether you prescribe to `TDD` or not at some point you know that creating your unit tests is the most important code that you can create for your application. Angular comes built with an army of tests, adding your own tests is easy thanks to the modular design of the framework.
+
+## Live Testing
+ With our advanced environment we can go even further and have `grunt` 'watch' for file changes and automatically run our unit tests whenever we are coding. This isn't a necessity to unit testing but very helpful.
+
+ ## Unit Testing with Jasmine
+
+ [Jasmine is a lightweight unit testing framework](http://jasmine.github.io/) used by the Angular team. With a simple declarative structure and a variety of [matchers, spies, and mock object](http://jasmine.github.io/) options you can easily isolate and create valuable unit tests.
+
+ <doc:example>
+ <doc:source>
+ <script>
+      function Ctrl($scope) {
+         $scope.onClick = function(){
+             $scope.valueC = Number($scope.valueA)+Number($scope.valueB);
+         };
+
+         $scope.valueA = 1;
+         $scope.valueB = 2;
+      }
+      </script>
+ <div ng-controller="Ctrl">
+ <input type="text" ng-model="valueA"></input>
+ <input type="text" ng-model="valueB"></input>
+ <button ng-click="onClick();">Add</button>
+ <h1>Answer: {{valueC}}</h1>
+ </div>
+ </doc:source>
+ <doc:scenario>
+ it('should add two numbers together',function(){
+    $scope.valueA = 1;
+    $scope.valueB = 1;
+    $scope.onClick();
+    expect($scope.valueC).toBe(2);
+ });
+
+ it('should add two numbers together',function(){
+     $scope.valueA = 1;
+     $scope.valueB = 2;
+     $scope.onClick();
+     expect($scope.valueC).toBe(3);
+  });
+
+  it('should not add two letters together',function(){
+       $scope.valueA = 'a';
+       $scope.valueB = 'b';
+       $scope.onClick();
+       expect($scope.valueC).toBeNull();
+    });
+ </doc:scenario>
+ </doc:example>
+
+ This is obviously the smallest of examples. When testing larger controllers, models, or services you can do many amazing tricks like providing mock versions of your dependencies (yay for dependency injection!) and further controlling your unit tests. For a quick and [thorough rundown of Jasmine make sure to read the docs](http://jasmine.github.io/).
+
+ ## Continuous Integration
+
+ Using Karma you can have your unit tests run at whatever frequency you would prefer within your existing Continuous Integration Environment.

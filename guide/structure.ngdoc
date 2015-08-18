@@ -1,0 +1,88 @@
+@ngdoc overview
+@name Structure
+@description
+
+# Project Structure
+
+The following lays out the project structure and a brief description of each of the files.
+
+## Top Level
+
+| name | description | add to repo? | make edits? |
+| ---- | ----------- | ------------ | ----------- |
+| bin | Built project, good  for releasing testing, very bad for development. | &#10007; | &#10007; |
+| build | Built project, good  for development testing, very bad for releasing. | &#10007; | &#10007; |
+| docs | Generated application and code documentation. | &#10007; | &#10007; |
+| guide | Guide markdown files to be generated into documentation. | &#10003; | &#10003; |
+| karma | Karma configuration files (touch at your own risk). | &#10003; | &#10007; |
+| node_modules | Necessary Node modules to build your application. | &#10007; | &#10007; |
+| sources | Additional support files such as data reference and original PSD files. | &#10003; | &#10003; |
+| src | Application Code, see breakdown below. | &#10003; | &#10003; |
+| vendor | 3rd party Javascript and CSS files to include with application. | &#10007; | &#10007; |
+| .bowerrc | bower config information | &#10003; | &#10007; |
+| .travis.yml | travis continuous integration information | &#10003; | &#10007; |
+| bower.json | Application bower config for 3rd party sources | &#10003; | &#10007; |
+| build.config.js | build configuration | &#10003; | &#10007; |
+| e2e.conf.js | end-to-end testing configuration file (protractor config) | &#10003; | &#10007; |
+| Gruntfile.js | Grunt build file for all of your build commands. | &#10003; | &#10007; |
+| module.prefix | source file header added during compilation | &#10003; | &#10007; |
+| module.suffix | source file footer added during compilation | &#10003; | &#10007; |
+| package.json | Node configuration file for your node_modules | &#10003; | &#10007; |
+| setup.e2e.conf.js | first protractor/end-to-end tests to run to setup values for other tests | &#10003; | &#10003; |
+
+## src folder
+
+The `/src` folder is the majority of your code and edits. You may notice a lot of duplicate files with only the file extension changing. This is to keep all similar files together and the file extension denotes the purpose of the file.
+
+| extension | purpose |
+| --------- | ------- |
+| *.js | main code, changes depending on the folder |
+| *.spec.js | unit tests |
+| *.e2e.js | end-to-end tests |
+| *.less | `CSS` stylesheet (in `less` format) |
+| *.tpl.html | `HTML` template layout |
+
+The following is the `/src` folder's organization and the purpose behind each file.
+
+- **app** - application code
+    - **commands** - commands that follow the command pattern
+        - **{command name}.js** - simple command
+        - **{command name}.spec.js** - simple command's unit tests
+    - **filters** - application specific filters
+        - **{filter name}.js** - application specific filter
+        - **{filter name}.spec.js** - application specific filter's unit tests
+    - **models** - data models
+        - **{model name}.js** - data model
+        - **{model name}.spec.js** - data model's unit tests
+    - **sections** - various views, controllers, e2e tests, unit tests, and less files
+        - **{section name}** - section within the application
+            - **{section name}.js** - view controller
+            - **{section name}.less** - view specific less
+            - **{section name}.spec.js** - controller unit tests
+            - **{section name}.tpl.html** - view template
+            - **{section name}.e2e.js** - view specific end-to-end tests
+        - ...
+    - **services** - data services to server
+        - **{service name}.js** - service module
+    - **app.e2e.js** - application scope end to end tests
+    - **app.js** - application scope controllers
+    - **app.spec.js** - application unit tests
+- **assets** - data and images application support files
+    - **data** - data files
+    - **fonts** - included fonts
+    - **images** - includes images
+    - **ie8.css** - ie8 css overrides
+    - **ie8.js** - ie8 javascript overrides
+- **common** - non-application specific directives and filters
+    - **directives** - non-application specific directives
+        - **{directive name}.js** - non-application specific directive
+    - **filters** - non-application filters
+        - **{filter name}.js** - non-application specific filter
+        - **{filter name}.spec.js** - non-application specific filter's unit tests
+    - **demo.js** - documentation import file
+- **less** - application less files
+    - **app.less** - general application css
+    - **main.less** - main import files
+    - **pizzahut.less** - pizza hut specific styles
+    - **variables.less** - application specific less variables
+- **index.html** - main application index file

@@ -1,0 +1,36 @@
+<div class="modals-logout-view modal-body">
+
+    <div class="row">
+        <h1>
+            <i class="fa fa-warning"></i> {{title}}
+            <br/>
+            <small ng-bind="message"></small>
+        </h1>
+    </div>
+
+    <div class="row">
+        <p>
+            If you have questions, please call the Pizza Hut Help Desk at <a href="tel:18008353379">1-800-835-3379</a>,
+            or email
+            <a href="mailto:PHLZEscalation@yum.com">PHLZEscalation@yum.com</a> or click on the link here for <a
+                class="use-pointer"
+                analytics-on="click"
+                analytics-event="View Help From Error"
+                analytics-category="navigation"
+                ng-click="onHelpLinkClick()">Help Desk Express</a>.
+        </p>
+    </div>
+
+    <div class="row align-right">
+        <button type="button"
+                class="btn btn-default ph-button"
+                analytics-on="click"
+                analytics-event="sessionerror"
+                analytics-label="relogin"
+                analytics-category="userAction"
+                ng-click="close();">
+            <i class="fa fa-sign-in"></i> Relogin
+        </button>
+    </div>
+
+</div>

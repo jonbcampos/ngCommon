@@ -1,0 +1,18 @@
+@ngdoc overview
+@name MVC
+@description
+
+# MVCS
+
+If you are unaware of `MVCS` structure then some of the `/src` folder's code segmentation may seem confusing. Below we will break out the various actors in `MVCS`.
+
+| Name | Purpose | Connection |
+| ---- | ------- | ---------- |
+| Model | Data layer. Represents the data and provides methods for updating the data used to bind to the View. | Does not have any knowledge of the View or Controller. |
+| View | Visual layer that the user interacts with. | Only interacts with the Controller through public methods and the Model through data binding. |
+| Controller | Serves as the glue between the View and Model by calling public Model methods listens to events fired over the `$rootScope`. | Sets up binding between the View and Model along with calling public Model methods. |
+| Service | Connect the application to the outside world, whether that is a data service, `Window` or device peripheral | Has no knowledge of any other parts of the application. Only provides public methods and provides either synchronous or asynchronous responses. |
+
+---
+
+For an indepth example of how data flows through the `MVCS` structure please read the article on [data flow](/#/guide/dataflow).

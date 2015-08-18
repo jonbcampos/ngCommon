@@ -1,0 +1,35 @@
+/**
+ * This is the main application stylesheet. It should include or import all
+ * stylesheets used throughout the application as this is the only stylesheet in
+ * the Grunt configuration that is automatically processed.
+ */
+/**
+ * First, we include the Twitter Bootstrap LESS files. Only the ones used in the
+ * project should be imported as the rest are just wasting space.
+ */
+@import '../../vendor/bootstrap/less/bootstrap.less';
+@import '../../vendor/components-font-awesome/less/font-awesome.less';
+/**
+ * This is our main variables file. We must include it last so we can overwrite any variable
+ * definitions in our imported stylesheets.
+ */
+@import 'variables.less';
+// app-wide styles
+@import "fonts.less";
+@import 'pizzahut.less';
+@import 'app.less';
+// sections
+@import '../app/sections/section1/section1.less';
+@import '../app/sections/section2/section2.less';
+// base sections
+@import '../app/sections/admin/admin.less';
+@import '../app/sections/noprofile/noprofile.less';
+@import '../app/sections/notfound/notfound.less';
+// modals
+@import '../app/sections/modals/confirm/confirm.less';
+@import '../app/sections/modals/deleting/deleting.less';
+@import '../app/sections/modals/error/error.less';
+@import '../app/sections/modals/loading/loading.less';
+@import '../app/sections/modals/logout/logout.less';
+@import '../app/sections/modals/retry/retry.less';
+@import '../app/sections/modals/saving/saving.less';

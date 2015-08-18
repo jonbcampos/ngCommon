@@ -1,0 +1,21 @@
+<label for="{{content.title}}">
+    <span ng-bind="content.title"></span>
+    <span class="required" ng-show="content.validations.required">*</span>
+</label>
+<treeselect select-class="form-control"
+            ts-class="{'input-sm': content.size==='sm', 'input-lg':content.size==='lg'}"
+            options="content.options"
+            answers="content.answers"
+            disabled="{{!content.extras.enabled}}"
+            hint="{{content.hint}}"
+            ts-id="content.id"
+            minimum="{{content.extras.minimum}}"
+            label-field="{{content.extras.labelField}}"
+            value-field="{{content.extras.valueField}}"
+            children-field="{{content.extras.childrenField}}"
+            title-field="{{content.extras.titleField}}"
+            empty-select-label="{{content.extras.emptySelectLabel}}"
+            on-selection-change="changeHandler();">
+</treeselect>
+<div class="form-error"></div>
+<span class="help-block" ng-bind="content.description"></span>

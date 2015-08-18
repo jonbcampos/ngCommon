@@ -1,0 +1,16 @@
+@ngdoc overview
+@name Project Structure
+@description
+
+# Project Structure
+
+> The following is an explaination of the project's structure, not the code's structure. For more information about the code's structure please visit the README.md files sprinkled throughout the code.
+
+# Application's Data Flow
+
+The application is set in full MVC format. As such you will see the following process for each data request.
+
+- Something requests the data, either a user input or application state change.
+- The Ctrl responds to a user's request or application event and makes the method request to one of the models.
+- The model makes data changes and interacts with the injected Service to communicate with the middle tier.
+- When the service completes (either result/fault) the data is updated immediately to the view through data binding and a complete event is fired through the {@link http://docs.angularjs.org/api/ng.$rootScope $rootScope} for any other controllers to respond as necessary.

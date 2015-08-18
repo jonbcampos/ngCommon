@@ -1,0 +1,15 @@
+@ngdoc overview
+@name Dependency Injection
+@description
+
+# Dependency Injection
+
+Dependency Injection (DI) is a very simple principal in application development. It is a design pattern that removes the hard dependencies within an application so that it is possible to change dependencies at runtime or compile time. This pattern is the backbone to Angular and it's dependency loading system.
+
+This means that you don't have to spend a lot of time worrying about creating objects or their dependencies, you just inject the object and start using it. Angular in the background will figure out what needs to be created and create it's dependencies as necessary.
+
+This pattern is particularly helpful during testing. Rather than dealing with a complex dependency structure you instead focus on just the part you are testing. Using mock objects and other fake dependencies at runtime you can further isolate your code making it easier to make true unit tests.
+
+---
+
+For further reading you can see what the Angular docs have to say about [Dependency Injection](http://docs.angularjs.org/guide/di). Within the docs are also specific examples and syntax of how to use DI within Angular.

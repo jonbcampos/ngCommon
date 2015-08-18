@@ -1,0 +1,97 @@
+@ngdoc overview
+@name Documentation
+@description
+
+# Documentation
+
+Utilizing the [ngDocs Grunt Plugin](https://github.com/m7r/grunt-ngdocs) we can compile our code into a pretty set of docs - the same you are reading from now. These docs have the ability to run your filters, directives and other modules to display the code's functionality. One huge benefit is that the docs are inline with the code - don't worry, this is removed during the minification process. The benefit is that the docs are versioned and kept with the code.
+
+### Example Documentation Block
+
+<pre>
+/**
+ * @ngdoc function
+ * @name app.AppCtrl:onStateChangeSuccessHandler
+ *
+ * @description
+ * Sets the page title based on state changes.
+ *
+ * @param {event} event from $scope.
+ * @param {object} toState from $scope.
+ * @param {object} toParams from $scope.
+ * @param {object} fromState from $scope.
+ * @param {object} fromParams from $scope.
+ *
+ * @methodOf app:AppCtrl
+ */
+</pre>
+
+### Standard supported jsdoc directives
+The ngdoc utility has basic support for many of the standard jsdoc directives.  But in particular it is interested in the following directives:
+
+* `@name name` - the name of the ngdoc document
+* `@param {type} name description` - describes a parameter of a function
+* `@returns {type} description` - describes what a function returns
+* `@requires` - normally indicates that a JavaScript module is required; in an Angular service it is used to describe what other services this service relies on
+* `@property` - describes a property of an object
+* `@description` - used to provide a description of a component in markdown
+* `@link` - specifies a link to a URL or a type in the API reference. **NOTE**: to link to `ng.$rootScope.Scope#$on` insert `methods_` between `#` and the actual method name: <pre>{@link ng.$rootScope.Scope#methods_$on listen}</pre>. Same goes for properties and events.
+* `@example` - specifies an example that will be formatted as a code block
+* `@deprecated` - specifies that the following code is deprecated and should not be used
+* `@this` - specifies what `this` refers to in the context of a documented function
+
+
+The `type` must be wrapped in `{}` curly braces; e.g. {Object|Array}
+Parameters can be made optional by putting the `[name]` in square brackets; e.g. `@param {boolean} [ownPropsOnly=false]`
+Descriptions can contain markdown formatting
+
+### AngularJS specific ngdoc directives
+In addition to the standard jsdoc directives, there are a number that are specific to the Angular
+code-base:
+
+* `@ngdoc` - specifies the type of thing being documented. See below for more detail.
+* `@scope` - specifies that the documented directive will create a new scope
+* `@priority` - specifies the documented directive's priority
+* `@animations` - specifies the animations that the documented directive supports
+* `@restrict` - specifies how directives should be shown in the usage section. For example, for [E]lement, [A]ttribute, and [C]lass, use `@restrict ECA`
+* `@methodOf type` - links a method to the object/service where it is defined
+* `@propertyOf type` - links a property to the object/service where it is defined
+* `@eventOf type` - links a method to the object/service where it is defined
+* `@eventType emit|broadcast` - specifies whether the event is emitted or broadcast
+
+### The `@ngdoc` Directive
+This directive helps to specify the template used to render the item being documented.  For instance,
+a directive would have different properties to a filter and so would be documented differently.  The
+commonly used types are:
+
+* `overview` - Give an overview of the file/module being documented
+* `interface` - Describe the interface of an object or service, specified by the `@name` directive.   *(abstract: use `@object` or `@service` instead)*
+  * `service` - Describe an AngularJS service, such as `$compile` or `$http`, for instance.
+  * `object` - Describe a well defined object (often exposed as a service)
+    * `function` - Describe a function that will be available to other methods *(such as a helper function within the ng module)*
+    * `method` - Describe a method on an object/service
+    * `property` - Describe a property on an object/service
+    * `event` - Describe an AngularJS event that will propagate through the `$scope` tree.
+* `directive` - Describe an AngularJS  directive
+* `filter` - Describe an AngularJS filter
+* `inputType` - Describe a specific type of AngularJS input directive (such as `text`, `email` or `checkbox`)
+* `error` - Describe a minErr error message
+
+In addition there is support for the following `@ngdoc` types. But they do not seem to appear in the
+current documentation:
+* `parameters`
+* `returns`
+* `this`
+* `directiveInfo`
+
+## Code blocks
+In line code can be specified by enclosing the code in back-ticks (\`).
+A block of multi-line code can be enclosed in triple back-ticks (\`\`\`) but it is formatted better if
+it is enclosed in &lt;pre&gt;...&lt;/pre&gt; tags and the code lines themselves are indented.
+
+## Writing examples and e2e scenarios
+It is possible to embed examples in the documentation along with appropriate e2e scenarios.  These examples and scenarios will be converted to runnable code within the documentation.  So it is important that they work correctly.  To ensure this, all these e2e scenarios are run as part of the automated test tasks in Travis and the CI server.
+
+---
+
+For more information on writing [documentation for AngularJS checkout their docs](https://github.com/angular/angular.js/wiki/Writing-AngularJS-Documentation) and [their code](https://github.com/angular/angular.js/tree/master/src).

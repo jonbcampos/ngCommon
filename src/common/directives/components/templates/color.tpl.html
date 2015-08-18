@@ -1,0 +1,8 @@
+<label for="{{content.title}}">
+    <span ng-bind="content.title"></span>
+    <span class="required" ng-show="content.validations.required">*</span>
+</label>
+<div class="status-block" style="background: {{currentValue}}; border: {{currentValue}} solid 1px;">
+    <span class="sr-only" ng-bind="currentDisplay"></span>
+</div>
+<span class="help-block" ng-bind="content.description"></span>

@@ -1,0 +1,48 @@
+@ngdoc overview
+@name Services
+@description
+
+# Code Reuse via Services
+
+One big benefit to Angular is it's use of [dependency injection](/#/guide/dependencyinjection). What does this mean for you and the framework? Every part of Angular is technically segmented into it's own code section. Meaning that you don't load up the entire framework and all it's parts just because you use the framework, only the parts you need are added and included. The same goes for your code and code other's provide you. Utilizing dependency injection you can easily include small or large components of other group's code.
+
+ ## In Practice (with Angular modules)
+
+ Let's say group 'A' has been working on an application and has a `LoginService` component. As long as that service is build within an Angular module this can be easily integrated with your application.
+
+ <pre>
+ var service = angular.module('services.LoginService',[]);
+ service.factory('LoginService',['$http','$q', function($http, $q){
+    var service = {};
+    service.authenticateUser = function(userId, password){
+        //create a deferred for a promise
+        //use $http to make a call with the provided variables
+        //return a promise for the calling function to handle the then statement
+    }
+    return service;
+ }]);
+ </pre>
+
+ Now it is very easy to include the service in any other application that may need this service.
+
+ <pre>
+ var model = angular.module('models.UserModel',[
+    'services.LoginService' //here we are adding it as a dependency
+ ]);
+ model.factory('UserModel',[
+    'LoginService',
+    function(LoginService){ //injecting the service
+        var model = {};
+        model.loginUser = function(){
+        // any code the model needs to setup the call
+        LoginService.authenticateUser(userId,password)
+            .then(successFunc, failureFunc); 
+        // make the call and using the provided 
+        // deferred we can respond with a 'then'
+    };
+ }]);
+ </pre>
+
+ <div class="alert alert-warning">
+ **Note:** In this example I focused on services and non-visual application components. To see visual components code reuse checkout the section on [directives](/#/guide/directives).
+ </div>

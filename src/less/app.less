@@ -1,0 +1,189 @@
+/**
+ * Created by jonbcampos on 8/4/14.
+ */
+.row-padding {
+  padding-left: @padding-base-horizontal;
+  padding-right: @padding-base-horizontal;
+}
+
+.row-top-padding {
+  padding-top: @padding-large-vertical;
+}
+
+.row-top-padding-small {
+  padding-top: @padding-small-vertical;
+}
+
+.row-bottom-padding {
+  padding-bottom: @padding-large-vertical;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.nav-container {
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 100%;
+  overflow-y: scroll;
+  //color: @ph-dark-gray;
+}
+
+.sliding-drawer-background {
+  //background-color: @ph-white;
+  height: 100%;
+  box-shadow: 0 0 30px @ph-black;
+  background: url('@{ph-images-path}/background.jpg') no-repeat 50% 0 #252523;
+}
+
+.sliding-drawer-darkening {
+  background-color: @ph-black;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.floating-alert {
+  position: fixed;
+  z-index: 2000;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+}
+
+.navbar-image {
+  padding: 0;
+  margin-top: 17px;
+  margin-right: 10px;
+  text-align: right;
+}
+
+.navbar-menu-btn {
+  position: relative;
+  float: left;
+  padding: 6px 10px;
+  .navbar-vertical-align(34px);
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: @border-radius-base;
+
+  &:hover, &:active {
+    border: 1px solid @navbar-default-toggle-hover-bg;
+  }
+
+  // Bars
+  .icon-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 1px;
+    background-color: @btn-default-border;
+  }
+  .icon-bar + .icon-bar {
+    margin-top: 4px;
+  }
+}
+
+.form-error-info {
+  color: @ph-red;
+}
+
+.form-error {
+  color: @ph-red;
+}
+
+.inline-feedback {
+  right: 10px !important;
+}
+
+.use-pointer {
+  cursor: pointer;
+}
+
+.show-block {
+  display: block !important;
+}
+
+.show-none {
+  display: none;
+}
+
+.fill-parent {
+  width: 100% !important;
+}
+
+.nav-image-container {
+  background: url('@{ph-images-path}/pizza-hut-make-it-great-logo-small.png') no-repeat;
+  width: 243px;
+  height: 62px;
+  position: absolute;
+  top: 40px;
+  right: 125px;
+}
+
+.contact-panel-padding {
+  padding-top: 15px;
+  margin-top: 15px;
+}
+
+.remove-horizontal-padding {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.remove-margin-top {
+  margin-top: 0;
+}
+
+.pull-up {
+  margin-top: -20px;
+}
+
+.vertical-center-btn {
+  margin-top: 22px;
+}
+
+.visible-h-rule {
+  border-width: 1px;
+}
+
+.positive-text {
+  color: @ph-green;
+}
+
+.negative-text {
+  color: @ph-red;
+}
+
+.neutral-text {
+  color: @ph-black;
+}
+
+input[type="date"] {
+  line-height: @input-height-base - 10;
+}
+
+.header-group {
+  text-align: center;
+  background-color: @ph-light-gray;
+  border-right: 1px solid @ph-white;
+}
+
+.row-separator > th {
+  background-color: @ph-light-gray !important;
+}
+
+.pretty-pre {
+  white-space: pre-wrap;
+}
+
+.pretty-pre-line {
+  white-space: pre-line;
+}

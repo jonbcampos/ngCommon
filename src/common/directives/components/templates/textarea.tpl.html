@@ -1,0 +1,9 @@
+<label for="{{content.title}}">
+    <span ng-bind="content.title"></span>
+    <span class="required" ng-show="content.validations.required">*</span>
+</label>
+<textarea class="form-control"
+          placeholder="{{content.hint}}"
+          rows="{{content.extras.rows}}"/>
+<div class="form-error"></div>
+<span class="help-block" ng-bind="content.description"></span>

@@ -1,0 +1,50 @@
+@ngdoc overview
+@name Binding
+@description
+
+# Data Binding
+
+Data-binding in Angular apps is the automatic synchronization of data between the model and view components. The way that Angular implements data-binding lets you treat the model as the single-source-of-truth in your application. The view is a projection of the model at all times. When the model changes, the view reflects the change, and vice versa.
+
+## Simple Example
+
+In your code this is very simple. Each section of your code is tied to view using a `scope`.
+
+Your HTML Template may look as such...
+
+<doc:example>
+<doc:source>
+<div>
+<label>Name:</label>
+<input type="text" ng-model="yourName" placeholder="Enter a name here">
+<hr>
+<h1>Hello {{yourName}}!</h1>
+</div>
+</doc:source>
+</doc:example>
+
+
+By typing in the text input the model/scope variable `yourName` is updated along with the binding indicated with the double curly braces (`{{...}}`) labeled with the same variable, `{{yourName}}`, is automatically updated. You don't need to add any watchers or event handlers to make this happen. This happens automatically using data binding built into AngularJS.
+
+## A Little More Complex Example
+
+You can go further and define a controller to be tied to your view. When doing this the `$scope` variable provides access to items bound in your view.
+
+<doc:example>
+<doc:source>
+<script>
+     function Ctrl($scope) {
+        $scope.yourName = 'Joe';
+     }
+     </script>
+<div ng-controller="Ctrl">
+<h1>Hello {{yourName}}!</h1>
+</div>
+</doc:source>
+</doc:example>
+
+In this example you see how the `$scope` variable tied to the view with a controller provides our view access to data in controller without the controller needing to know about this view. This is an important feature as it will simplify our unit tests.
+
+---
+
+For further reading on the subject please visit the [Angular Guide](http://docs.angularjs.org/guide/databinding "Data Binding").

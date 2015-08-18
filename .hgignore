@@ -1,0 +1,9 @@
+syntax: glob
+*.sw*
+*~
+build/
+build.zip
+bin/
+bin.zip
+node_modules/
+vendor/

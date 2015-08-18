@@ -1,0 +1,7 @@
+<label for="{{content.title}}">
+    <span ng-bind="content.title"></span>
+    <span class="required" ng-show="content.validations.required">*</span>
+</label>
+<input placeholder="{{content.hint}}" type="file"/>
+<div class="form-error"></div>
+<span class="help-block" ng-bind="content.description"></span>

@@ -1,0 +1,9 @@
+<label for="{{content.title}}">
+    <span ng-bind="content.title"></span>
+    <span class="required" ng-show="content.validations.required">*</span>
+</label>
+<select class="form-control"
+        ng-class="{'input-sm': content.size==='sm', 'input-lg':content.size==='lg'}">
+</select>
+<div class="form-error"></div>
+<span class="help-block" ng-bind="content.description"></span>

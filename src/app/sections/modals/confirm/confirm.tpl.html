@@ -1,0 +1,32 @@
+<div class="confirm-view modal-body">
+
+    <div class="row">
+        <h1 class="col-sm-12">{{confirmText}}</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="pull-right">
+                <button type="button"
+                        class="btn btn-default ph-button-secondary"
+                        analytics-on="click"
+                        analytics-event="Confirm"
+                        analytics-label="reject"
+                        analytics-category="userAction"
+                        ng-click="cancel();">
+                    <i class="fa fa-times"></i> No
+                </button>
+                <button type="button"
+                        class="btn btn-default ph-button"
+                        analytics-on="click"
+                        analytics-event="Confirm"
+                        analytics-label="accept"
+                        analytics-category="userAction"
+                        ng-click="accept();">
+                    <i class="fa fa-check"></i> Yes
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>

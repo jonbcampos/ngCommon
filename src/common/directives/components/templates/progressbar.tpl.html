@@ -1,0 +1,17 @@
+<label for="{{content.title}}">
+    <span ng-bind="content.title"></span>
+    <span class="required" ng-show="content.validations.required">*</span>
+</label>
+<div class="field-block" style="vertical-align: top">
+    <div class="field-progress progress"
+         ng-class="{'active progress-striped':content.extras.animated===true}"
+         style="width: {{content.extras.width}}px; display: inline-block">
+        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{currentValue}}"
+             aria-valuemin="{{content.extras.min}}" aria-valuemax="{{content.extras.max}}"
+             style="width: {{content.extras.calculatedWidth}}px; background-color: {{content.extras.color}};">
+            <span class="sr-only" ng-bind="currentValue"></span>
+        </div>
+    </div>
+    <span ng-bind="content.answer.value"></span>
+</div>
+<span class="help-block" ng-bind="content.description"></span>
